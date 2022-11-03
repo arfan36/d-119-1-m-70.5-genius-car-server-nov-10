@@ -10,17 +10,19 @@ const port = process.env.PORT || 5000;
 app.use(cors());
 app.use(express.json());
 
+// mongoDb
 const uri = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASSWORD}@clusterarfan36.opuzllc.mongodb.net/?retryWrites=true&w=majority`;
+console.log('uri :>> ', uri);
 const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true, serverApi: ServerApiVersion.v1 });
 
 async function run() {
     try {
-        const userCollection = client.db('nodeMongoCrud').collection('users');
+        const serviceCollection = client.db('geniusCar').collection('services');
 
         app.post('/users', async (req, res) => {
             const user = req.body;
             console.log(user);
-            const result = await userCollection.insertOne(user);
+            const result = await serviceCollection.insertOne(user);
             res.send(result);
         });
     }
