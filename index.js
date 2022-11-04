@@ -43,7 +43,7 @@ async function run() {
             let query = {};
             if (req.query.email) {
                 query = {
-                    email: req.query.email
+                    email: req.query.email,
                 };
             }
             const cursor = orderCollection.find(query);
