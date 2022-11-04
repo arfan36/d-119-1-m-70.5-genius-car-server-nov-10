@@ -43,7 +43,7 @@ async function run() {
             let query = {};
             if (req.query.email) {
                 query = {
-                    email: req.query.email,
+                    email: req.query.email
                 };
             }
             const cursor = orderCollection.find(query);
@@ -55,6 +55,14 @@ async function run() {
         app.post('/orders', async (req, res) => {
             const order = req.body;
             const result = await orderCollection.insertOne(order);
+            res.send(result);
+        });
+
+        // Delete (D) : delete one
+        app.delete('/orders/:id', async (req, res) => {
+            const id = req.params.id;
+            const query = { _id: ObjectId(id) };
+            const result = await orderCollection.deleteOne(query);
             res.send(result);
         });
     }
