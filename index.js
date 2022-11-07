@@ -21,6 +21,13 @@ async function run() {
         const serviceCollection = client.db('geniusCar').collection('services');
         const orderCollection = client.db('geniusCar').collection('order');
 
+        // Create (C) 
+        app.post('/jwt', async (req, res) => {
+            const user = req.body;
+            const token = jwt.sign(user, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '1h' });
+            res.send({ token });
+        });
+
         // Read (R)
         app.get('/services', async (req, res) => {
             const query = {};
